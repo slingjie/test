@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12省市136号文政策细则交互式分析报告</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #4a5568;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --text-color: #212529;
+            --green-light: #e6fffa;
+            --green-dark: #2f855a;
+            --yellow-light: #fffbeb;
+            --yellow-dark: #b7791f;
+            --red-light: #fff5f5;
+            --red-dark: #c53030;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 12px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-top: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .tab-button {
+            padding: 12px 25px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 700;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        p, ul {
+            margin-bottom: 1.2em;
+        }
+        
+        strong {
+            color: #c53030;
+        }
+
+        .insight-card {
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+        
+        .insight-card ul {
+            padding-left: 20px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        thead {
+            background-color: #e9ecef;
+            font-weight: 600;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        /* Dashboard specific styles */
+        .rating-cell { text-align: center; font-weight: bold; }
+        .rating-5 { background-color: var(--green-light); color: var(--green-dark); }
+        .rating-4 { background-color: #d1fae5; color: #065f46; }
+        .rating-3 { background-color: var(--yellow-light); color: var(--yellow-dark); }
+        .rating-2 { background-color: #fee2e2; color: #991b1b; }
+        .rating-1 { background-color: var(--red-light); color: var(--red-dark); }
+        
+        .stars { color: #facc15; font-size: 1.2rem; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>12省市136号文政策细则交互式分析报告</h1>
+            <p>基于“光伏们”原始报告的深度解读与决策支持</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'overview')">报告总览</button>
+            <button class="tab-button" onclick="openTab(event, 'dashboard')">投资决策仪表盘</button>
+            <button class="tab-button" onclick="openTab(event, 'regional')">区域深度分析</button>
+            <button class="tab-button" onclick="openTab(event, 'insights')">关键洞察与趋势</button>
+        </nav>
+
+        <main>
+            <div id="overview" class="tab-content active">
+                <h2>政策背景：136号文的核心是什么？</h2>
+                <p>“136号文”是国家推动新能源从补贴时代迈向全面市场化的关键政策文件。它旨在通过定义<strong>“机制电量”</strong>和<strong>“机制电价”</strong>，解决新能源上网电价的市场化过渡问题。</p>
+                <div class="insight-card">
+                    <ul>
+                        <li><strong>机制电量 (Guaranteed Volume)</strong>: 指电网公司保证以固定价格收购的新能源电量比例或小时数。这部分电量收益稳定，不参与市场竞价。</li>
+                        <li><strong>机制电价 (Guaranteed Price)</strong>: 指收购“机制电量”时执行的固定价格。</li>
+                        <li><strong>市场化电量</strong>: 超出“机制电量”的部分，必须进入电力市场进行交易，价格随行就市，收益存在不确定性。</li>
+                    </ul>
+                </div>
+                <h3>核心矛盾与分化</h3>
+                <p>报告揭示了政策执行中的两大核心矛盾，导致各省细则差异巨大：</p>
+                <ol>
+                    <li><strong>存量 vs. 增量</strong>: 如何平衡已建成的“存量项目”的历史承诺收益，与推动未来“增量项目”全面市场化的改革目标。</li>
+                    <li><strong>资源区 vs. 负荷区</strong>: 新能源富集但本地消纳能力弱的“三北”地区，与电力需求旺盛的东中部“负荷中心”地区，政策取向截然不同。</li>
+                </ol>
+            </div>
+
+            <div id="dashboard" class="tab-content">
+                <h2>新能源投资决策仪表盘</h2>
+                <p>下表综合评估了12个省市的政策环境，为投资决策提供直观参考。“★”越多代表吸引力越高。</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>省份</th>
+                            <th>区域</th>
+                            <th style="text-align:center;">存量项目保障</th>
+                            <th style="text-align:center;">增量项目友好度</th>
+                            <th style="text-align:center;">综合投资吸引力</th>
+                            <th>核心挑战</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>上海</td>
+                            <td>华东</td>
+                            <td class="rating-cell rating-5">高 (100%保障)</td>
+                            <td class="rating-cell rating-5">高 (12年期)</td>
+                            <td class="rating-cell stars">★★★★★</td>
+                            <td>土地资源有限</td>
+                        </tr>
+                        <tr>
+                            <td>广东</td>
+                            <td>华南</td>
+                            <td class="rating-cell rating-3">中 (分级保障)</td>
+                            <td class="rating-cell rating-5">高 (不低于90%)</td>
+                            <td class="rating-cell stars">★★★★★</td>
+                            <td>陆上资源少, 侧重海风</td>
+                        </tr>
+                         <tr>
+                            <td>海南</td>
+                            <td>华南</td>
+                            <td class="rating-cell rating-4">较高 (85%-100%)</td>
+                            <td class="rating-cell rating-4">较高 (75%)</td>
+                            <td class="rating-cell stars">★★★★☆</td>
+                            <td>土地及气候风险</td>
+                        </tr>
+                        <tr>
+                            <td>山东</td>
+                            <td>华东</td>
+                            <td class="rating-cell rating-3">中 (预计80%)</td>
+                            <td class="rating-cell rating-3">中 (市场化程度高)</td>
+                            <td class="rating-cell stars">★★★☆☆</td>
+                            <td>市场化交易复杂</td>
+                        </tr>
+                        <tr>
+                            <td>山西</td>
+                            <td>华北</td>
+                            <td class="rating-cell rating-3">中 (政策衔接)</td>
+                            <td class="rating-cell rating-3">中 (竞价确定)</td>
+                            <td class="rating-cell stars">★★★☆☆</td>
+                            <td>现货市场价格波动</td>
+                        </tr>
+                        <tr>
+                            <td>蒙西</td>
+                            <td>华北</td>
+                            <td class="rating-cell rating-2">较低 (按小时数)</td>
+                            <td class="rating-cell rating-1">极低 (暂不安排)</td>
+                            <td class="rating-cell stars">★★☆☆☆</td>
+                            <td>增量完全市场化</td>
+                        </tr>
+                        <tr>
+                            <td>蒙东</td>
+                            <td>华北</td>
+                            <td class="rating-cell rating-2">较低 (按小时数)</td>
+                            <td class="rating-cell rating-1">极低 (暂不安排)</td>
+                            <td class="rating-cell stars">★★☆☆☆</td>
+                            <td>增量完全市场化</td>
+                        </tr>
+                         <tr>
+                            <td>宁夏</td>
+                            <td>西北</td>
+                            <td class="rating-cell rating-2">分化 (分布式100%, 集中式10%)</td>
+                            <td class="rating-cell rating-2">低 (10%)</td>
+                            <td class="rating-cell stars">★★☆☆☆</td>
+                            <td>消纳压力, 集中式保障低</td>
+                        </tr>
+                         <tr>
+                            <td>甘肃</td>
+                            <td>西北</td>
+                            <td class="rating-cell rating-2">较低 (总量控制)</td>
+                            <td class="rating-cell rating-2">低 (不高于80%)</td>
+                            <td class="rating-cell stars">★★☆☆☆</td>
+                            <td>消纳压力</td>
+                        </tr>
+                        <tr>
+                            <td>湖南</td>
+                            <td>华中</td>
+                            <td class="rating-cell rating-2">分化 (扶贫100%, 常规低)</td>
+                            <td class="rating-cell rating-2">低 (20%)</td>
+                            <td class="rating-cell stars">★★☆☆☆</td>
+                            <td>常规项目保障比例低</td>
+                        </tr>
+                        <tr>
+                            <td>湖北</td>
+                            <td>华中</td>
+                            <td class="rating-cell rating-1">极低 (12-13%)</td>
+                            <td class="rating-cell rating-1">极低 (12.5%)</td>
+                            <td class="rating-cell stars">★☆☆☆☆</td>
+                            <td>存量项目已现亏损</td>
+                        </tr>
+                        <tr>
+                            <td>新疆</td>
+                            <td>西北</td>
+                            <td class="rating-cell rating-1">极低 (30%-50%)</td>
+                            <td class="rating-cell rating-1">极低 (参考平价)</td>
+                            <td class="rating-cell stars">★☆☆☆☆</td>
+                            <td><strong>极严峻的消纳压力</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="regional" class="tab-content">
+                <h2>区域政策细则深度分析</h2>
+                <p>以下为各区域代表省份的政策细则汇总，数据源自原始报告。</p>
+                
+                <h3>华东地区 (负荷中心，政策分化)</h3>
+                <table>
+                    <thead><tr><th>省份</th><th>类型</th><th>机制电量规模</th><th>机制电价(元/kWh)</th><th>执行期限</th><th>竞价类型</th></tr></thead>
+                    <tbody>
+                        <tr><td rowspan="2">山东</td><td>存量</td><td>上报参考省外非市场化率，适度优化</td><td>-</td><td>按生命周期利用小时数执行</td><td rowspan="2">光伏、深远海风电、其他风电：按有效竞争时，不再分组，统一开竞价。</td></tr>
+                        <tr><td>增量</td><td>0 (参与市场交易)</td><td>0.3949 (根据成本等因素确定)</td><td>-</td></tr>
+                        <tr><td rowspan="2">上海</td><td>存量</td><td>最高100%</td><td>0.4155</td><td>按投产20年/全生命周期</td><td rowspan="2">原则上进行统一竞价，成本差异大的项目可单独组织。</td></tr>
+                        <tr><td>增量</td><td>与存量项目适当衔接</td><td>度电成本<0.4155</td><td>12年</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>华北地区 (市场化程度高)</h3>
+                <table>
+                    <thead><tr><th>省份</th><th>类型</th><th>机制电量规模</th><th>机制电价(元/kWh)</th><th>执行期限</th></tr></thead>
+                    <tbody>
+                        <tr><td rowspan="2">蒙东</td><td>存量</td><td>按不同类型项目分小时数 (如集中式光伏635h)</td><td>0.3035</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>暂不安排机制电量</td><td>-</td><td>-</td></tr>
+                        <tr><td rowspan="2">蒙西</td><td>存量</td><td>按不同类型项目分小时数 (如集中式光伏250h)</td><td>0.2829</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>暂不安排机制电量</td><td>-</td><td>-</td></tr>
+                        <tr><td rowspan="2">山西</td><td>存量</td><td>按具体项目核定机制电量比例</td><td>0.332</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>竞价确定</td><td>竞价确定</td><td>考虑回收初始投资的平均期限等</td></tr>
+                    </tbody>
+                </table>
+                
+                <h3>西北地区 (消纳压力巨大)</h3>
+                 <table>
+                    <thead><tr><th>省份</th><th>类型</th><th>机制电量规模</th><th>机制电价(元/kWh)</th><th>执行期限</th></tr></thead>
+                    <tbody>
+                        <tr><td rowspan="2">新疆</td><td>存量</td><td>补贴项目30%，平价项目50%</td><td>0.25 - 0.262</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>参考平价项目比例(50%)及增量项目上网电量</td><td>0.15 - 0.262</td><td>10年</td></tr>
+                        <tr><td rowspan="2">甘肃</td><td>存量</td><td>总量154亿千瓦时</td><td>0.3078</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>不高于80%</td><td>-</td><td>12年</td></tr>
+                        <tr><td rowspan="2">宁夏</td><td>存量</td><td>分布式100%，集中式10%</td><td>0.2595</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>10%</td><td>0.18 - 0.2595</td><td>10年</td></tr>
+                    </tbody>
+                </table>
+                
+                <h3>华南 & 华中地区</h3>
+                 <table>
+                    <thead><tr><th>省份</th><th>类型</th><th>机制电量规模</th><th>机制电价(元/kWh)</th><th>执行期限</th></tr></thead>
+                    <tbody>
+                        <tr><td rowspan="2">广东</td><td>存量</td><td>分电压等级 50%-100%</td><td>0.453</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>不高于90%</td><td>竞价确定</td><td>海风14年, 其他12年</td></tr>
+                        <tr><td rowspan="2">海南</td><td>存量</td><td>按投产年份 85%-100%</td><td>0.4298</td><td>按20年, 截至2025.12.31</td></tr>
+                        <tr><td>增量</td><td>75% - 80%</td><td>0.2 - 0.4298</td><td>12-14年</td></tr>
+                        <tr><td rowspan="2">湖北</td><td>存量</td><td>集中式12-13%, 分布式65-80%</td><td>0.4161</td><td>原则上20年</td></tr>
+                        <tr><td>增量</td><td>12.5%左右</td><td>0.19 - 0.38</td><td>暂定12年</td></tr>
+                        <tr><td rowspan="2">湖南</td><td>存量</td><td>扶贫100%, 常规20-80%</td><td>0.45</td><td>按投产20年/全生命周期</td></tr>
+                        <tr><td>增量</td><td>20%</td><td>0.26 - 0.38</td><td>10年</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="insights" class="tab-content">
+                <h2>关键洞察与未来趋势</h2>
+                
+                <h3>💡 关键洞察 (Key Takeaways for Investors)</h3>
+                <div class="insight-card">
+                    <ul>
+                        <li><strong>“消纳为王”取代“资源为王”</strong>：西北地区拥有最好的风光资源，但政策最为严苛，核心原因是消纳能力已达瓶颈。投资决策的首要考量因素已变为当地的电网消纳能力和市场化环境。</li>
+                        <li><strong>投资热点向负荷中心转移</strong>：华东（上海）、华南（广东）等经济发达、电力需求旺盛的地区，提供了最友好的政策环境，正成为新的投资热土。</li>
+                        <li><strong>存量项目风险暴露</strong>：尤其在湖北、新疆等省份，存量项目的收益受到巨大冲击，部分已陷入亏损。这警示投资者，政策性风险是新能源投资的核心风险之一。</li>
+                        <li><strong>项目类型决定命运</strong>：分布式光伏（尤其自发自用模式）和扶贫项目受政策保护程度最高。集中式电站，尤其是在消纳困难地区的，面临的市场风险最大。</li>
+                    </ul>
+                </div>
+
+                <h3>📈 未来趋势展望 (Future Trends)</h3>
+                <div class="insight-card">
+                    <ul>
+                        <li><strong>企业能力要求全面升级</strong>：投资企业必须从单纯的开发商，向具备<strong>电力交易、风险管理、储能配置</strong>等综合能力的能源服务商转型。市场化运营能力将是未来的核心竞争力。</li>
+                        <li><strong>“网源荷储”一体化是破局关键</strong>：对于“沙戈荒”等大型基地项目，其成败不再取决于资源本身，而取决于能否与特高压外送通道、下游用户负荷、配套储能设施形成一体化解决方案。</li>
+                        <li><strong>区域市场化进程加速分化</strong>：各省电力市场建设进度不一，将导致区域间的电价机制、交易规则差异越来越大。精细化、区域化的市场研究变得至关重要。</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Get all elements with class="tab-content" and hide them
+            let tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tab-button" and remove the class "active"
+            let tablinks = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // For dashboard, we want to ensure all elements are visible correctly
+            if(tabName === 'dashboard' || tabName === 'regional'){
+                 // Force a reflow, can help with table rendering issues on display:none -> block
+                document.getElementById(tabName).offsetHeight;
+            }
+        }
+
+        // Initially open the first tab
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".tab-button").click();
+        });
+    </script>
+
+</body>
+</html>
